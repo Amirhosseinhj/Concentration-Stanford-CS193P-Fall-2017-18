@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
 // Big green arrow from controller to model!
-    var game = Concentration()
+    lazy var game = Concentration(numberOfPaireOfCards: (cardButtons.count + 1) / 2)
     
     var flipCount = 0 {
         didSet {
