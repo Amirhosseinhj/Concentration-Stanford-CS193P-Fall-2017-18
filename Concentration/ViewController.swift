@@ -33,6 +33,17 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func pressNewGameButton(_ sender: UIButton) {
+        flipCount = 0
+        emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🍎", "🍭", "🍬", "😱", "💀"]
+        emoji.removeAll()
+        game = Concentration(numberOfPaireOfCards: (cardButtons.count + 1) / 2)
+        for cardButton in cardButtons {
+            cardButton.backgroundColor = UIColor.orange
+            cardButton.setTitle("", for: .normal)
+        }
+    }
+    
     func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
