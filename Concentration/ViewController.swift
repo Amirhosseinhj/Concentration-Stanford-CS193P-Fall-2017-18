@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet weak var gameScoreLabel: UILabel!
     
     
     @IBAction func touchCard(_ sender: UIButton) {
@@ -35,7 +36,11 @@ class ViewController: UIViewController {
     
     @IBAction func pressNewGameButton(_ sender: UIButton) {
         flipCount = 0
-        emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🍎", "🍭", "🍬", "😱", "💀"]
+        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
+        emojiChoices.removeAll()
+        let upperBoundIndex = (randomThemeNumber * 15) - 1
+        let lowerBoundIndex = (randomThemeNumber - 1) * 15
+        emojiChoices.append(contentsOf: allEmojies[lowerBoundIndex...upperBoundIndex])
         emoji.removeAll()
         game = Concentration(numberOfPaireOfCards: (cardButtons.count + 1) / 2)
         for cardButton in cardButtons {
@@ -58,7 +63,15 @@ class ViewController: UIViewController {
         }
     }
     
-    var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🍎", "🍭", "🍬", "😱", "💀"]
+    var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷"]
+
+    var allEmojies = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷",
+                      "😃", "🤫", "🤥", "🤔", "🤗", "😁", "😂", "🤣", "😍", "😭", "😤", "😎", "🤪", "😚", "😒",
+                      "⚽️" ,"🧗🏻‍♂️", "🏄🏻‍♂️", "🧘🏻‍♀️", "🤸🏻‍♂️", "🏀", "⚾️", "🏈", "🎾", "🏐", "🏉", "🎱", "🥋", "🥊", "⛹🏻‍♂️",
+                      "🐭" ,"🐒", "🐧", "🐥" ,"🐺", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷",
+                      "🍏", "🥦", "🥕", "🥒", "🍅", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", "🍒", "🥑",
+                      "🥐", "🍕", "🥪", "🍰", "🎂", "🍗", "🍖", "🌭", "🍟", "🍔", "🌮", "🥙", "🥪", "🥟", "🥗",
+                      "🚗", "🚕", "🚙", "🚑", "🚓" ,"🏎", "🚚", "🛵", "🏍", "🚅", "✈️", "🚢", "🚁", "🛶" , "⛵️"]
     var emoji = [Int:String]()
     
     func emoji(for card: Card) -> String {

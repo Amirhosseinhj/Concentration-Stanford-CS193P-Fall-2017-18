@@ -205,10 +205,17 @@
                                     <action selector="touchCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xhf-YB-F0A"/>
                                 </connections>
                             </button>
-                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7h-5P-ldU">
-                                <rect key="frame" x="105" y="650" width="164" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score = 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1z-4I-a1z">
+                                <rect key="frame" x="78" y="690" width="212" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7h-5P-ldU">
+                                <rect key="frame" x="102" y="588" width="164" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <state key="normal" title="New Game">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -222,6 +229,7 @@
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="NnH-EF-OU5" id="40D-m5-ld7"/>
+                        <outlet property="gameScoreLabel" destination="H1z-4I-a1z" id="KSm-FE-wJa"/>
                         <outletCollection property="cardButtons" destination="xbu-6o-A01" collectionClass="NSMutableArray" id="swg-FQ-tRJ"/>
                         <outletCollection property="cardButtons" destination="UbD-9N-ife" collectionClass="NSMutableArray" id="2jd-mg-8Bg"/>
                         <outletCollection property="cardButtons" destination="thn-Bb-z3k" collectionClass="NSMutableArray" id="9AC-Df-gR7"/>
