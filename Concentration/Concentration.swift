@@ -16,6 +16,8 @@ class Concentration {
     
     var gameScore = 0
     
+    var previouslySeenCardsIdentifiers = [Int]()
+    
     func chooseCard (at index: Int) {
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {

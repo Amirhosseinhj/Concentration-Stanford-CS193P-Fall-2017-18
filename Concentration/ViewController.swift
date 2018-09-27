@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     
     @IBAction func pressNewGameButton(_ sender: UIButton) {
         flipCount = 0
+        gameScoreLabel.text = "Score = 0"
         let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
         emojiChoices.removeAll()
         let upperBoundIndex = (randomThemeNumber * 15) - 1
@@ -61,6 +62,7 @@ class ViewController: UIViewController {
                 button.backgroundColor = card.isMatched ? UIColor.clear : UIColor.orange
             }
         }
+        gameScoreLabel.text = "Score = \(game.gameScore)"
     }
     
     var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷"]
