@@ -51,6 +51,7 @@ class ViewController: UIViewController {
         for cardButton in cardButtons {
             cardButton.backgroundColor = UIColor.orange
             cardButton.setTitle("", for: .normal)
+            cardButton.isEnabled = true
         }
     }
     
@@ -63,7 +64,12 @@ class ViewController: UIViewController {
                 button.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
             } else {
                 button.setTitle("", for: .normal)
-                button.backgroundColor = card.isMatched ? UIColor.clear : UIColor.orange
+                if card.isMatched {
+                    button.isEnabled = false
+                     button.backgroundColor = UIColor.clear
+                } else {
+                    button.backgroundColor = UIColor.orange
+                }
             }
         }
         gameScoreLabel.text = "Score = \(game.gameScore)"
