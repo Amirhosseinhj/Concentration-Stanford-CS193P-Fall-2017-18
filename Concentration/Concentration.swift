@@ -38,9 +38,12 @@ class Concentration {
     
     var previouslySeenCardsIdentifiers = [Int]()
     
+    var flipCount = 0
+    
     func chooseCard (at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
+            flipCount += 1
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
 //                Check if cards match
                 if cards[matchIndex].identifier == cards[index].identifier {
