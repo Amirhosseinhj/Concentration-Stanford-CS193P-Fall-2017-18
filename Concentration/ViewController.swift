@@ -11,24 +11,24 @@ import UIKit
 class ViewController: UIViewController {
     
 // Big green arrow from controller to model!
-    lazy var game = Concentration(numberOfPaireOfCards: numberOfPairsOfCards)
+    private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
         return (cardButtons.count + 1) / 2
     }
     
-    var flipCount = 0 {
+    private(set) var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
     
-    @IBOutlet weak var flipCountLabel: UILabel!
-    @IBOutlet var cardButtons: [UIButton]!
-    @IBOutlet weak var gameScoreLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
+    @IBOutlet private var cardButtons: [UIButton]!
+    @IBOutlet private weak var gameScoreLabel: UILabel!
     
     
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
         if let cardNumber = cardButtons.index(of: sender) {
             game.chooseCard(at: cardNumber)
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func pressNewGameButton(_ sender: UIButton) {
+    @IBAction private func pressNewGameButton(_ sender: UIButton) {
         flipCount = 0
         gameScoreLabel.text = "Score = 0"
         let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
@@ -47,14 +47,14 @@ class ViewController: UIViewController {
         let lowerBoundIndex = (randomThemeNumber - 1) * 15
         emojiChoices.append(contentsOf: allEmojies[lowerBoundIndex...upperBoundIndex])
         emoji.removeAll()
-        game = Concentration(numberOfPaireOfCards: (cardButtons.count + 1) / 2)
+        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
         for cardButton in cardButtons {
             cardButton.backgroundColor = UIColor.orange
             cardButton.setTitle("", for: .normal)
         }
     }
     
-    func updateViewFromModel() {
+    private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -69,18 +69,18 @@ class ViewController: UIViewController {
         gameScoreLabel.text = "Score = \(game.gameScore)"
     }
     
-    var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷"]
+    private var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷"]
 
-    var allEmojies = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷",
+    private var allEmojies = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷",
                       "😃", "🤫", "🤥", "🤔", "🤗", "😁", "😂", "🤣", "😍", "😭", "😤", "😎", "🤪", "😚", "😒",
                       "⚽️" ,"🧗🏻‍♂️", "🏄🏻‍♂️", "🧘🏻‍♀️", "🤸🏻‍♂️", "🏀", "⚾️", "🏈", "🎾", "🏐", "🏉", "🎱", "🥋", "🥊", "⛹🏻‍♂️",
                       "🐭" ,"🐒", "🐧", "🐥" ,"🐺", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷",
                       "🍏", "🥦", "🥕", "🥒", "🍅", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", "🍒", "🥑",
                       "🥐", "🍕", "🥪", "🍰", "🎂", "🍗", "🍖", "🌭", "🍟", "🍔", "🌮", "🥙", "🥪", "🥟", "🥗",
                       "🚗", "🚕", "🚙", "🚑", "🚓" ,"🏎", "🚚", "🛵", "🏍", "🚅", "✈️", "🚢", "🚁", "🛶" , "⛵️"]
-    var emoji = [Int:String]()
+    private var emoji = [Int:String]()
     
-    func emoji(for card: Card) -> String {
+    private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil, emojiChoices.count > 0 {
                 let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
                 emoji[card.identifier] = emojiChoices.remove(at: randomIndex)

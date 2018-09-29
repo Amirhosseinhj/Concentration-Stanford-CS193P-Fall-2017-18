@@ -10,9 +10,9 @@ import Foundation
 
 class Concentration {
     
-    var cards = [Card]()
+    private(set) var cards = [Card]()
     
-    var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             var foundIndex: Int?
             for index in cards.indices {
@@ -39,6 +39,7 @@ class Concentration {
     var previouslySeenCardsIdentifiers = [Int]()
     
     func chooseCard (at index: Int) {
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
 //                Check if cards match
@@ -46,6 +47,26 @@ class Concentration {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     gameScore += 2
+                } else {
+//                    it is a miss match
+                    if previouslySeenCardsIdentifiers.contains(cards[matchIndex].identifier){
+                        gameScore -= 1
+                        if cards[index].alreadySeen{
+                            gameScore -= 1
+                        } else {
+                            cards[index].alreadySeen = true
+                            if !previouslySeenCardsIdentifiers.contains(cards[index].identifier){
+                                previouslySeenCardsIdentifiers.append(cards[index].identifier)
+                            }
+                        }
+                    } else {
+                        previouslySeenCardsIdentifiers.append(cards[matchIndex].identifier)
+                        cards[matchIndex].alreadySeen = true
+                        cards[index].alreadySeen = true
+                        if !previouslySeenCardsIdentifiers.contains(cards[index].identifier){
+                            previouslySeenCardsIdentifiers.append(cards[index].identifier)
+                        }
+                    }
                 }
                 cards[index].isFaceUp = true
             } else {
@@ -55,8 +76,9 @@ class Concentration {
         }
     }
  
-    init(numberOfPaireOfCards: Int){
-        for _ in 0..<numberOfPaireOfCards {
+    init(numberOfPairsOfCards: Int){
+        assert(numberOfPairsOfCards > 0, "Concentration.init( \(numberOfPairsOfCards)): you must have at least one pair of cards")
+        for _ in 0..<numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
         }
