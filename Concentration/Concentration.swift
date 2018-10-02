@@ -36,7 +36,7 @@ struct Concentration {
     
     var gameScore = 0
     
-    var previouslySeenCardsIdentifiers = [Int]()
+    var previouslySeenCardsIdentifiers = [Card]()
     
     var flipCount = 0
     
@@ -46,28 +46,28 @@ struct Concentration {
             flipCount += 1
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
 //                Check if cards match
-                if cards[matchIndex].identifier == cards[index].identifier {
+                if cards[matchIndex] == cards[index] {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     gameScore += 2
                 } else {
 //                    it is a miss match
-                    if previouslySeenCardsIdentifiers.contains(cards[matchIndex].identifier){
+                    if previouslySeenCardsIdentifiers.contains(cards[matchIndex]){
                         gameScore -= 1
                         if cards[index].alreadySeen{
                             gameScore -= 1
                         } else {
                             cards[index].alreadySeen = true
-                            if !previouslySeenCardsIdentifiers.contains(cards[index].identifier){
-                                previouslySeenCardsIdentifiers.append(cards[index].identifier)
+                            if !previouslySeenCardsIdentifiers.contains(cards[index]){
+                                previouslySeenCardsIdentifiers.append(cards[index])
                             }
                         }
                     } else {
-                        previouslySeenCardsIdentifiers.append(cards[matchIndex].identifier)
+                        previouslySeenCardsIdentifiers.append(cards[matchIndex])
                         cards[matchIndex].alreadySeen = true
                         cards[index].alreadySeen = true
-                        if !previouslySeenCardsIdentifiers.contains(cards[index].identifier){
-                            previouslySeenCardsIdentifiers.append(cards[index].identifier)
+                        if !previouslySeenCardsIdentifiers.contains(cards[index]){
+                            previouslySeenCardsIdentifiers.append(cards[index])
                         }
                     }
                 }
