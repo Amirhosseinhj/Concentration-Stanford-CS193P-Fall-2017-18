@@ -36,18 +36,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func pressNewGameButton(_ sender: UIButton) {
-//        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
-//        updateViewFromModel()
-////        Setting up new theme
-//        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
-//        emojiChoices.removeAll()
-//        let upperBoundIndex = (randomThemeNumber * 15) - 1
-//        let lowerBoundIndex = (randomThemeNumber - 1) * 15
-//        emojiChoices.append(contentsOf: allEmojies[lowerBoundIndex...upperBoundIndex])
-//        emoji.removeAll()
-//        for cardButton in cardButtons {
-//            cardButton.isEnabled = true
-//        }
+        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+        updateViewFromModel()
+//        Setting up new theme
+        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
+        emojiChoices.removeAll()
+        let lowerBoundIndex = allEmojies.index(allEmojies.startIndex, offsetBy: (randomThemeNumber - 1) * 15)
+        let upperBoundIndex = allEmojies.index(allEmojies.startIndex, offsetBy: (randomThemeNumber * 15) - 1)
+        emojiChoices = String(allEmojies[lowerBoundIndex...upperBoundIndex])
+        
+        emoji.removeAll()
+        for cardButton in cardButtons {
+            cardButton.isEnabled = true
+        }
     }
     
     private func updateFlipCountLabel() {
@@ -83,6 +84,7 @@ class ViewController: UIViewController {
     private var emojiChoices = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷"
 
     private var allEmojies = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️🐭🐒🐧🐥🐺🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🍏🥦🥕🥒🍅🍐🍊🍋🍌🍉🍇🍓🍈🍒🥑🥐🍕🥪🍰🎂🍗🍖🌭🍟🍔🌮🥙🥪🥟🥗🚗🚕🚙🚑🚓🏎🚚🛵🏍🚅✈️🚢🚁🛶⛵️"
+    
     private var emoji = [Card:String]()
     
     private func emoji(for card: Card) -> String {

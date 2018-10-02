@@ -36,9 +36,6 @@ struct Concentration {
     }
     
     var gameScore = 0
-    
-//    var previouslySeenCards = [Card]()
-    
     var flipCount = 0
     
     mutating func chooseCard (at index: Int) {
@@ -63,24 +60,6 @@ struct Concentration {
                     } else {
                         cards[index].alreadySeen = true
                     }
-//                    if previouslySeenCards.contains(cards[matchIndex]){
-//                        gameScore -= 1
-//                        if cards[index].alreadySeen{
-//                            gameScore -= 1
-//                        } else {
-//                            cards[index].alreadySeen = true
-//                            if !previouslySeenCards.contains(cards[index]){
-//                                previouslySeenCards.append(cards[index])
-//                            }
-//                        }
-//                    } else {
-//                        previouslySeenCards.append(cards[matchIndex])
-//                        cards[matchIndex].alreadySeen = true
-//                        cards[index].alreadySeen = true
-//                        if !previouslySeenCards.contains(cards[index]){
-//                            previouslySeenCards.append(cards[index])
-//                        }
-//                    }
                 }
                 cards[index].isFaceUp = true
             } else {
