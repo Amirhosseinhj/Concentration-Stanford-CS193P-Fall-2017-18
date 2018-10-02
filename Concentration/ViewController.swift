@@ -17,7 +17,12 @@ class ViewController: UIViewController {
         return (cardButtons.count + 1) / 2
     }
     
-    @IBOutlet private weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel! {
+        didSet {
+            updateFlipCountLabel()
+        }
+    }
+    
     @IBOutlet private var cardButtons: [UIButton]!
     @IBOutlet private weak var gameScoreLabel: UILabel!
     
@@ -31,18 +36,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func pressNewGameButton(_ sender: UIButton) {
-        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
-        updateViewFromModel()
-//        Setting up new theme
-        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
-        emojiChoices.removeAll()
-        let upperBoundIndex = (randomThemeNumber * 15) - 1
-        let lowerBoundIndex = (randomThemeNumber - 1) * 15
-        emojiChoices.append(contentsOf: allEmojies[lowerBoundIndex...upperBoundIndex])
-        emoji.removeAll()
-        for cardButton in cardButtons {
-            cardButton.isEnabled = true
-        }
+//        game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+//        updateViewFromModel()
+////        Setting up new theme
+//        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
+//        emojiChoices.removeAll()
+//        let upperBoundIndex = (randomThemeNumber * 15) - 1
+//        let lowerBoundIndex = (randomThemeNumber - 1) * 15
+//        emojiChoices.append(contentsOf: allEmojies[lowerBoundIndex...upperBoundIndex])
+//        emoji.removeAll()
+//        for cardButton in cardButtons {
+//            cardButton.isEnabled = true
+//        }
+    }
+    
+    private func updateFlipCountLabel() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .strokeWidth : 5.0,
+            .strokeColor : UIColor.orange
+        ]
+        let attributedString = NSAttributedString(string: "Flips: \(game.flipCount)", attributes: attributes)
+        flipCountLabel.attributedText = attributedString
     }
     
     private func updateViewFromModel() {
@@ -63,23 +77,18 @@ class ViewController: UIViewController {
             }
         }
         gameScoreLabel.text = "Score = \(game.gameScore)"
-        flipCountLabel.text = "Flips: \(game.flipCount)"
+        updateFlipCountLabel()
     }
     
-    private var emojiChoices = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷"]
+    private var emojiChoices = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷"
 
-    private var allEmojies = ["🎃", "👻", "🦇", "😈", "🙀", "👹", "🤡", "🍭", "🍬", "😱", "💀", "☠️", "🧟‍♀️", "🧞‍♂️", "🕷",
-                      "😃", "🤫", "🤥", "🤔", "🤗", "😁", "😂", "🤣", "😍", "😭", "😤", "😎", "🤪", "😚", "😒",
-                      "⚽️" ,"🧗🏻‍♂️", "🏄🏻‍♂️", "🧘🏻‍♀️", "🤸🏻‍♂️", "🏀", "⚾️", "🏈", "🎾", "🏐", "🏉", "🎱", "🥋", "🥊", "⛹🏻‍♂️",
-                      "🐭" ,"🐒", "🐧", "🐥" ,"🐺", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷",
-                      "🍏", "🥦", "🥕", "🥒", "🍅", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", "🍒", "🥑",
-                      "🥐", "🍕", "🥪", "🍰", "🎂", "🍗", "🍖", "🌭", "🍟", "🍔", "🌮", "🥙", "🥪", "🥟", "🥗",
-                      "🚗", "🚕", "🚙", "🚑", "🚓" ,"🏎", "🚚", "🛵", "🏍", "🚅", "✈️", "🚢", "🚁", "🛶" , "⛵️"]
+    private var allEmojies = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️🐭🐒🐧🐥🐺🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🍏🥦🥕🥒🍅🍐🍊🍋🍌🍉🍇🍓🍈🍒🥑🥐🍕🥪🍰🎂🍗🍖🌭🍟🍔🌮🥙🥪🥟🥗🚗🚕🚙🚑🚓🏎🚚🛵🏍🚅✈️🚢🚁🛶⛵️"
     private var emoji = [Card:String]()
     
     private func emoji(for card: Card) -> String {
         if emoji[card] == nil, emojiChoices.count > 0 {
-                emoji[card] = emojiChoices.remove(at: emojiChoices.count.arc4Random)
+            let randomStringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4Random)
+                emoji[card] = String(emojiChoices.remove(at: randomStringIndex))
         }
         
         return emoji[card] ?? "?"

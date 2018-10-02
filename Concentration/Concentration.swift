@@ -36,7 +36,7 @@ struct Concentration {
     
     var gameScore = 0
     
-    var previouslySeenCardsIdentifiers = [Card]()
+    var previouslySeenCards = [Card]()
     
     var flipCount = 0
     
@@ -52,22 +52,22 @@ struct Concentration {
                     gameScore += 2
                 } else {
 //                    it is a miss match
-                    if previouslySeenCardsIdentifiers.contains(cards[matchIndex]){
+                    if previouslySeenCards.contains(cards[matchIndex]){
                         gameScore -= 1
                         if cards[index].alreadySeen{
                             gameScore -= 1
                         } else {
                             cards[index].alreadySeen = true
-                            if !previouslySeenCardsIdentifiers.contains(cards[index]){
-                                previouslySeenCardsIdentifiers.append(cards[index])
+                            if !previouslySeenCards.contains(cards[index]){
+                                previouslySeenCards.append(cards[index])
                             }
                         }
                     } else {
-                        previouslySeenCardsIdentifiers.append(cards[matchIndex])
+                        previouslySeenCards.append(cards[matchIndex])
                         cards[matchIndex].alreadySeen = true
                         cards[index].alreadySeen = true
-                        if !previouslySeenCardsIdentifiers.contains(cards[index]){
-                            previouslySeenCardsIdentifiers.append(cards[index])
+                        if !previouslySeenCards.contains(cards[index]){
+                            previouslySeenCards.append(cards[index])
                         }
                     }
                 }
