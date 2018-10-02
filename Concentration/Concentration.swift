@@ -14,17 +14,18 @@ struct Concentration {
     
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
-            var foundIndex: Int?
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter{ cards[$0].isFaceUp }.oneAndOnly
+//            var foundIndex: Int?
+//            for index in cards.indices {
+//                if cards[index].isFaceUp {
+//                    if foundIndex == nil {
+//                        foundIndex = index
+//                    } else {
+//                        return nil
+//                    }
+//                }
+//            }
+//            return foundIndex
         }
         set {
             for index in cards.indices {
@@ -36,7 +37,7 @@ struct Concentration {
     
     var gameScore = 0
     
-    var previouslySeenCards = [Card]()
+//    var previouslySeenCards = [Card]()
     
     var flipCount = 0
     
@@ -52,24 +53,34 @@ struct Concentration {
                     gameScore += 2
                 } else {
 //                    it is a miss match
-                    if previouslySeenCards.contains(cards[matchIndex]){
+                    if cards[matchIndex].alreadySeen == true {
                         gameScore -= 1
-                        if cards[index].alreadySeen{
-                            gameScore -= 1
-                        } else {
-                            cards[index].alreadySeen = true
-                            if !previouslySeenCards.contains(cards[index]){
-                                previouslySeenCards.append(cards[index])
-                            }
-                        }
                     } else {
-                        previouslySeenCards.append(cards[matchIndex])
                         cards[matchIndex].alreadySeen = true
-                        cards[index].alreadySeen = true
-                        if !previouslySeenCards.contains(cards[index]){
-                            previouslySeenCards.append(cards[index])
-                        }
                     }
+                    if cards[index].alreadySeen == true {
+                        gameScore -= 1
+                    } else {
+                        cards[index].alreadySeen = true
+                    }
+//                    if previouslySeenCards.contains(cards[matchIndex]){
+//                        gameScore -= 1
+//                        if cards[index].alreadySeen{
+//                            gameScore -= 1
+//                        } else {
+//                            cards[index].alreadySeen = true
+//                            if !previouslySeenCards.contains(cards[index]){
+//                                previouslySeenCards.append(cards[index])
+//                            }
+//                        }
+//                    } else {
+//                        previouslySeenCards.append(cards[matchIndex])
+//                        cards[matchIndex].alreadySeen = true
+//                        cards[index].alreadySeen = true
+//                        if !previouslySeenCards.contains(cards[index]){
+//                            previouslySeenCards.append(cards[index])
+//                        }
+//                    }
                 }
                 cards[index].isFaceUp = true
             } else {
@@ -94,4 +105,10 @@ struct Concentration {
         cards = randomCards
     }
     
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
+    }
 }
