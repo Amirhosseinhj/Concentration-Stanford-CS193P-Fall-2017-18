@@ -57,28 +57,30 @@ class ConcentrationViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        for index in cardButtons.indices {
-            let button = cardButtons[index]
-            let card = game.cards[index]
-            if card.isFaceUp {
-                button.setTitle(emoji(for: card), for: .normal)
-                button.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-            } else {
-                button.setTitle("", for: .normal)
-                if card.isMatched {
-                    button.isEnabled = false
-                     button.backgroundColor = UIColor.clear
+        if cardButtons != nil {
+            for index in cardButtons.indices {
+                let button = cardButtons[index]
+                let card = game.cards[index]
+                if card.isFaceUp {
+                    button.setTitle(emoji(for: card), for: .normal)
+                    button.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
                 } else {
-                    button.backgroundColor = UIColor.blue
+                    button.setTitle("", for: .normal)
+                    if card.isMatched {
+                        button.isEnabled = false
+                        button.backgroundColor = UIColor.clear
+                    } else {
+                        button.backgroundColor = UIColor.blue
+                    }
                 }
             }
+            gameScoreLabel.text = "Score = \(game.gameScore)"
+            updateFlipCountLabel()
         }
-        gameScoreLabel.text = "Score = \(game.gameScore)"
-        updateFlipCountLabel()
     }
     
     private var emojiChoices = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷"
-    private var allEmojies : [Int:String] = [0:"🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷",
+    private let allEmojies : [Int:String] = [0:"🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷",
                                              1:"😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒",
                                              2:"⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️",
                                              3:"🐭🐒🐧🐥🐺🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷",
