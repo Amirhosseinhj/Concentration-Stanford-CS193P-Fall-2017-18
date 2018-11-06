@@ -15,8 +15,8 @@
         <scene sceneID="iVz-ng-897">
             <objects>
                 <viewController id="whv-no-u0i" customClass="ConcentrationThemeChooserViewController" customModule="Concentration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6Wf-VW-Ued">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1004"/>
+                    <view key="view" contentMode="scaleToFill" id="6Wf-VW-Ued">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gnc-6D-Mgk">
@@ -27,7 +27,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Sports"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="showDetail" identifier="Choose Theme" id="Ggf-Rk-MNf"/>
+                                            <action selector="changeTheme:" destination="whv-no-u0i" eventType="touchUpInside" id="4Tn-Vn-7Bo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gi0-Xk-4SP">
@@ -35,7 +35,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Faces"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="showDetail" identifier="Choose Theme" id="5ia-LG-sn2"/>
+                                            <action selector="changeTheme:" destination="whv-no-u0i" eventType="touchUpInside" id="Xis-GB-jHx"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdG-1G-VoW">
@@ -43,7 +43,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Animals"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="showDetail" identifier="Choose Theme" id="I1C-P3-z4f"/>
+                                            <action selector="changeTheme:" destination="whv-no-u0i" eventType="touchUpInside" id="oys-5Y-m6v"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -57,6 +57,9 @@
                         <viewLayoutGuide key="safeArea" id="mq8-UN-h6O"/>
                     </view>
                     <navigationItem key="navigationItem" id="5RV-dP-vcA"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="Choose Theme" id="9Rd-lk-Jha"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwj-1r-vS5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -306,7 +309,6 @@
         <!--Item 2-->
         <scene sceneID="ucN-Ue-uPv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CPv-ik-MSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="g6K-SP-Cf1" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CVy-4A-Tbl">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -316,13 +318,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="sb6-n3-JMb"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CPv-ik-MSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1538" y="652"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="RdB-91-47I">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ynX-o7-7rH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="MnQ-jv-EIq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wCY-uo-Ndm">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -332,6 +334,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="sRT-55-Omx"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ynX-o7-7rH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-841" y="652"/>
         </scene>
@@ -374,6 +377,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6q3-Zx-Ii6"/>
+        <segue reference="9Rd-lk-Jha"/>
     </inferredMetricsTieBreakers>
 </document>
