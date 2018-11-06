@@ -39,12 +39,8 @@ class ConcentrationViewController: UIViewController {
         game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
         updateViewFromModel()
 //        Setting up new theme
-        emojiChoices.removeAll()
-        emoji.removeAll()
         let randomThemeNumber = allEmojies.count.arc4Random
-        if let newTheme = allEmojies[randomThemeNumber] {
-            emojiChoices.append(contentsOf: newTheme)
-        }
+        theme = allEmojies[randomThemeNumber]
         
         for cardButton in cardButtons {
             cardButton.isEnabled = true
@@ -91,6 +87,14 @@ class ConcentrationViewController: UIViewController {
                                              6:"🚗🚕🚙🚑🚓🏎🚚🛵🏍🚅✈️🚢🚁🛶⛵️"
     ]
     private var emoji = [Card:String]()
+    
+    var theme: String? {
+        didSet{
+            emojiChoices = theme ?? ""
+            emoji.removeAll()
+            updateViewFromModel()
+        }
+    }
     
     private func emoji(for card: Card) -> String {
         if emoji[card] == nil, emojiChoices.count > 0 {
