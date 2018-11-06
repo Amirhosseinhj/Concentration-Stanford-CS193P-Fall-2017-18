@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ConcentrationViewController: UIViewController {
     
 // Big green arrow from controller to model!
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
@@ -39,13 +39,13 @@ class ViewController: UIViewController {
         game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
         updateViewFromModel()
 //        Setting up new theme
-        let randomThemeNumber = Int(arc4random_uniform(UInt32(allEmojies.count / 15))) + 1
         emojiChoices.removeAll()
-        let lowerBoundIndex = allEmojies.index(allEmojies.startIndex, offsetBy: (randomThemeNumber - 1) * 15)
-        let upperBoundIndex = allEmojies.index(allEmojies.startIndex, offsetBy: (randomThemeNumber * 15) - 1)
-        emojiChoices = String(allEmojies[lowerBoundIndex...upperBoundIndex])
-        
         emoji.removeAll()
+        let randomThemeNumber = allEmojies.count.arc4Random
+        if let newTheme = allEmojies[randomThemeNumber] {
+            emojiChoices.append(contentsOf: newTheme)
+        }
+        
         for cardButton in cardButtons {
             cardButton.isEnabled = true
         }
@@ -82,9 +82,14 @@ class ViewController: UIViewController {
     }
     
     private var emojiChoices = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷"
-
-    private var allEmojies = "🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️🐭🐒🐧🐥🐺🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🍏🥦🥕🥒🍅🍐🍊🍋🍌🍉🍇🍓🍈🍒🥑🥐🍕🥪🍰🎂🍗🍖🌭🍟🍔🌮🥙🥪🥟🥗🚗🚕🚙🚑🚓🏎🚚🛵🏍🚅✈️🚢🚁🛶⛵️"
-    
+    private var allEmojies : [Int:String] = [0:"🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷",
+                                             1:"😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒",
+                                             2:"⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️",
+                                             3:"🐭🐒🐧🐥🐺🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷",
+                                             4:"🍏🥦🥕🥒🍅🍐🍊🍋🍌🍉🍇🍓🍈🍒🥑",
+                                             5:"🥐🍕🥪🍰🎂🍗🍖🌭🍟🍔🌮🥙🥪🥟🥗",
+                                             6:"🚗🚕🚙🚑🚓🏎🚚🛵🏍🚅✈️🚢🚁🛶⛵️"
+    ]
     private var emoji = [Card:String]()
     
     private func emoji(for card: Card) -> String {
