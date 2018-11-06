@@ -8,8 +8,21 @@
 
 import UIKit
 
-class ConcentrationThemeChooserViewController: UIViewController {
-
+class ConcentrationThemeChooserViewController: UIViewController, UISplitViewControllerDelegate {
+    
+    override func awakeFromNib() {
+        splitViewController?.delegate = self
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        if let cvc = secondaryViewController as? ConcentrationViewController {
+            if cvc.theme == nil {
+                return true
+            }
+        }
+        return false
+    }
+    
     private let themes = ["Halloween":"🎃👻🦇😈🙀👹🤡🍭🍬😱💀☠️🧟‍♀️🧞‍♂️🕷",
                           "Faces":"😃🤫🤥🤔🤗😁😂🤣😍😭😤😎🤪😚😒",
                           "Sports":"⚽️🧗🏻‍♂️🏄🏻‍♂️🧘🏻‍♀️🤸🏻‍♂️🏀⚾️🏈🎾🏐🏉🎱🥋🥊⛹🏻‍♂️",
