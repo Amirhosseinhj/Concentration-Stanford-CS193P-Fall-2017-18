@@ -50,7 +50,7 @@ class ConcentrationViewController: UIViewController {
     private func updateFlipCountLabel() {
         let attributes: [NSAttributedString.Key: Any] = [
             .strokeWidth : 5.0,
-            .strokeColor : UIColor.orange
+            .strokeColor : UIColor.black
         ]
         let attributedString = NSAttributedString(string: "Flips: \(game.flipCount)", attributes: attributes)
         flipCountLabel.attributedText = attributedString
@@ -62,14 +62,14 @@ class ConcentrationViewController: UIViewController {
             let card = game.cards[index]
             if card.isFaceUp {
                 button.setTitle(emoji(for: card), for: .normal)
-                button.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+                button.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             } else {
                 button.setTitle("", for: .normal)
                 if card.isMatched {
                     button.isEnabled = false
                      button.backgroundColor = UIColor.clear
                 } else {
-                    button.backgroundColor = UIColor.orange
+                    button.backgroundColor = UIColor.blue
                 }
             }
         }
